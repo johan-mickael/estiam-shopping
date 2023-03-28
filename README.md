@@ -1,6 +1,1 @@
-This is a small shopping list app made in react.
-
-##LEARNING REACT JS
-
-
-# estiam-shopping
+[Trello Agile Dashboard](https://trello.com/b/4lIL362v/shopping-basic-crud)
