@@ -2,7 +2,6 @@ import "./App.css";
 import * as React from "react";
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import Shopping from "./pages/Shoppings";
-import NewItem from "./components/Items/Form/newitem";
 import Navbar from "./pages/Navbar";
 import { Container } from "@mui/material";
 import UpdateShoppingForm from "./components/Shopping/Form/UpdateShoppingForm";

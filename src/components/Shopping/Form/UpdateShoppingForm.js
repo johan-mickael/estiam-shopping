@@ -10,7 +10,6 @@ const UpdateShoppingForm = () => {
   const [shoppings, setShoppings] = useOutletContext();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [isLoading, setLoading] = useState(false)
   let shopping = shoppings.filter((shopping) => shopping.id === id)[0].data();
   const { register, handleSubmit, watch, setValue, clearErrors, formState: { errors } } = useForm();
 
