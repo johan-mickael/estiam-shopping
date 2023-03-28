@@ -69,7 +69,7 @@ export default function EnhancedTable({ shoppingId, shopping }) {
                     color="secondary"
                 >
                     List of shopping items
-                    <Chip label={`${progress}% done`} color={progress == 100 ? "success": "primary"} style={{ flex: 1, float: 'right' }}/>
+                    <Chip label={`${progress}% done`} color={progress == 100 ? "success": "secondary"} style={{ flex: 1, float: 'right' }}/>
                    
                 </Typography>
 

@@ -11,7 +11,7 @@ import Items from "./pages/Items";
 
 function App() {
   return (
-    <div className="App" style={{background: '#f1f1f1'}}>
+    <div className="App" style={{background: '#f1f1f1', minHeight: '100vh'}}>
       <Router>
         <Navbar />
         <Container>

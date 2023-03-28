@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
 import 'firebase/compat/firestore';
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyAFIqnXkinWV0HvwPppWjrueR17jjLS-fc",
     authDomain: "estiamshopping.firebaseapp.com",

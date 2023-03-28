@@ -6,26 +6,33 @@ import db from "../../../firebase_config";
 import Grid from "@mui/material/Grid";
 import { addDoc, collection } from "firebase/firestore";
 import { Card, CardContent, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 const NewItem = ({ shoppingId }) => {
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
+  const { register, handleSubmit, watch, setValue, clearErrors, formState: { errors } } = useForm();
+
   const itemsRef = db.collection("items");
 
 
   // save the item in the db
   const saveItem = async (e) => {
-    e.preventDefault()
     await addDoc(collection(db, "items"), {
-      name: itemName,
+      name: watch('name'),
       shoppingId: shoppingId,
-      description: itemDescription,
+      description: watch('description'),
       status: false,
     });
-    setItemName("");
-    setItemDescription("");
+    resetInputValue()
   }
+
+  const resetInputValue = () => {
+    setValue("name", "")
+    setValue("description", "")
+    clearErrors()
+  }
+
   return (
+    <form onSubmit={handleSubmit(saveItem)}>
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography variant="h6" color="text.secondary" gutterBottom>
@@ -36,32 +43,23 @@ const NewItem = ({ shoppingId }) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                name="ItemName"
-                required
+                error={errors.name}
                 fullWidth
-                id="itemName"
-                label="Enter the Item's name"
+                label="Name"
                 autoFocus
-                value={itemName}
-                onChange={(e) => {
-                  setItemName(e.target.value);
-                }}
+                {...register("name", { required: "Please fill the name." })}
+                helperText={errors.name && errors.name.message}
               />
             </Grid>
 
             <Grid item xs={12}>
               <TextField
-                name="itemDecription"
-                required
+                error={errors.description}
                 fullWidth
-                multiline
-                rows={3}
-                id="itemDecription"
-                label="A brief description of the Item"
-                value={itemDescription}
-                onChange={(e) => {
-                  setItemDescription(e.target.value);
-                }}
+                label="Description"
+                name="description"
+                {...register("description")}
+                helperText={errors.description && errors.description.message}
               />
             </Grid>
             <Grid item xs={12}>
@@ -69,9 +67,6 @@ const NewItem = ({ shoppingId }) => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={(e) => {
-                  saveItem(e);
-                }}
               >
                 Add
               </Button>
@@ -81,6 +76,7 @@ const NewItem = ({ shoppingId }) => {
         </Typography>
       </CardContent>
     </Card>
+    </form>
   );
 };
 export default NewItem;
