@@ -96,8 +96,6 @@ export default function EnhancedTable({ shoppingId, shopping }) {
                                         >
                                             <DeleteIcon color="error" />
                                         </Button>
-
-
                                     </TableCell>
                                 </TableRow>
                             ))}

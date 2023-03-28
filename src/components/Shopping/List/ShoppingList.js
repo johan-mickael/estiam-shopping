@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 
@@ -16,8 +17,24 @@ import DeleteShoppingButton from "../Button/DeleteShoppingButton";
 import EditShoppingIconButton from "../Button/EditShoppingIconButton";
 import GoToItemsButton from "../Button/GoToItemsButton"
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const ShoppingList = ({ shoppings }) => {
+
+  const [data, setData] = useState(shoppings);
+
+  const search = (e) => {
+    const filteredShoppings = shoppings.filter(item => {
+      const isMatchingToName = item.data().name.toLowerCase().includes(e.target.value.toLowerCase());
+      const isMatchingToDescription = item.data().description.toLowerCase().includes(e.target.value.toLowerCase());
+      return isMatchingToName || isMatchingToDescription;
+    });
+    setData(filteredShoppings)
+  }
+
+  useEffect(() => {
+    setData(shoppings)
+  }, [shoppings])
   
   return (
     <Box>
@@ -28,12 +45,25 @@ const ShoppingList = ({ shoppings }) => {
           bgcolor="#fdfdfd"
           color="secondary"
         >
-          <Link style={{ textDecoration: "inherit" }} to="new">
-            <Button color="success" variant="contained">New shopping</Button>
-          </Link>
+          <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Link style={{ textDecoration: "inherit" }} to="new">
+              <Button color="success" variant="contained">New shopping</Button>
+            </Link>
+          </Grid>
+          <Grid item xs={6}>
+              <TextField
+                fullWidth
+                label="search"
+                name="search"
+                size="small"
+                onChange={(e) => search(e)}
+              />
+            </Grid>
+            </Grid>
         </Typography>
         <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 500 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
@@ -43,7 +73,7 @@ const ShoppingList = ({ shoppings }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {shoppings.map((shopping) => (
+              {data.map((shopping) => (
                 <TableRow
                   key={shopping.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
